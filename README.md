@@ -2,7 +2,10 @@
 
 CS669 Project - Replication of "RL for Versatile, Dynamic, and Robust Bipedal Locomotion Control" (Li et al., 2024)
 
-**Team**: Kaviya Sree Ravikumar Meenakshi (kr549), Yash Chaudhary (ygc2), Gnana Midde (gam54)
+**Team**: 
+- Kaviya Sree Ravikumar Meenakshi (kr549)
+- Yash Chaudhary (ygc2)
+- Gnana Midde (gam54)
 
 ---
 
@@ -111,4 +114,5 @@ cassie_rl_modern/
 - Yash Chaudhary: ygc2@njit.edu
 - Gnana Midde: gam54@njit.edu
 
-CS669 - Reinforcement Learning, Fall 2024
+CS669 - Reinforcement Learning, Fall 2025
+
