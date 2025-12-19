@@ -1,0 +1,88 @@
+# Cassie RL Training Configuration
+
+# Environment Settings
+env:
+  model_path: "assets/cassie.xml"
+  frame_skip: 10  # How many simulation steps per action
+  max_episode_steps: 1000
+
+  # Command settings
+  fixed_command: false  # If true, use fixed_velocity
+  fixed_velocity: [1.0, 0.0, 0.0]  # [forward, lateral, yaw_rate]
+  velocity_range:
+    forward: [-0.5, 3.0]
+    lateral: [-0.5, 0.5]
+    yaw_rate: [-1.0, 1.0]
+
+  # Observation settings
+  include_command: true
+  include_history: true
+  history_length: 50  # Short-term history (timesteps)
+  long_history_length: 200  # For CNN encoding (2 seconds at 100Hz)
+
+  # Reward weights
+  rewards:
+    forward_velocity: 1.0
+    lateral_velocity: 0.5
+    yaw_rate: 0.3
+    energy_penalty: 0.0001
+    torque_penalty: 0.00001
+    orientation_penalty: 1.0
+    height_penalty: 0.5
+
+  # Domain randomization
+  randomize_dynamics: false  # Enable after baseline works
+  dynamics_randomization:
+    mass_range: [0.8, 1.2]  # Multiplier
+    friction_range: [0.5, 1.5]
+    motor_strength_range: [0.8, 1.2]
+
+# Agent Settings
+agent:
+  type: "ppo"  # or "recurrent_ppo" for LSTM version
+
+  # Network architecture
+  network:
+    dual_history: true
+    short_history_mlp: [256, 256, 128]
+    long_history_cnn:
+      filters: [32, 64, 64]
+      kernel_sizes: [8, 4, 3]
+      strides: [4, 2, 1]
+    policy_head: [128, 64]
+    value_head: [128, 64]
+
+  # PPO Hyperparameters
+  learning_rate: 0.0003
+  n_steps: 4096  # Steps per environment per update
+  batch_size: 256
+  n_epochs: 10
+  gamma: 0.99
+  gae_lambda: 0.95
+  clip_range: 0.2
+  ent_coef: 0.01  # Entropy coefficient
+  vf_coef: 0.5  # Value function coefficient
+  max_grad_norm: 0.5
+
+# Training Settings
+training:
+  total_timesteps: 50_000_000  # 50M steps
+  n_envs: 1  # Number of parallel environments (increase if you have multiple cores)
+  save_freq: 100_000  # Save model every N steps
+  eval_freq: 50_000  # Evaluate every N steps
+  eval_episodes: 10
+
+  # Logging
+  log_dir: "logs/"
+  tensorboard: true
+
+  # Checkpointing
+  checkpoint_dir: "checkpoints/"
+  save_best_only: false
+
+# Evaluation Settings
+evaluation:
+  n_episodes: 20
+  render: true
+  save_video: true
+  video_path: "videos/"
