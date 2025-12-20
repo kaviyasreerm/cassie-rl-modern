@@ -108,11 +108,6 @@ cassie_rl_modern/
 
 ---
 
-## Contact
-
-- Kaviya Sree Ravikumar Meenakshi: kr549@njit.edu
-- Yash Chaudhary: ygc2@njit.edu
-- Gnana Midde: gam54@njit.edu
-
 CS669 - Reinforcement Learning, Fall 2025
+
 
